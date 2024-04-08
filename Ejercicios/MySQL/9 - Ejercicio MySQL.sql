@@ -5,7 +5,11 @@ CREATE PROCEDURE modifica_precio (Tipo CHAR(1), Porcentaje INTEGER(3), P_Categor
        BEGIN
        DECLARE P_Autor_nombre VARCHAR (30);
        DECLARE P_Autor_apellidos VARCHAR (50);
-		IF (P_Categoria IS NULL OR P_Categoria = '') THEN
+       IF (Porcentaje <= 0)THEN
+			SELECT "No se pueden porcentajes menores o iguales a 0" AS MENSAJE;
+        ELSEIF (Tipo NOT IN('B','b','S','s'))THEN
+			SELECT "Tipo no reconocido" AS MENSAJE;
+		ELSEIF (P_Categoria IS NULL OR P_Categoria = '') THEN
 			UPDATE LIBROS 
             SET PVP = CASE WHEN upper(Tipo) = 'S' THEN PVP * (1 + (Porcentaje / 100))
 							WHEN upper(Tipo) = 'B' THEN PVP * (1 - (Porcentaje / 100))
@@ -31,6 +35,10 @@ DELIMITER ;
 
 /* Pruebas para ver si funciona */
 SELECT * FROM LIBROS;
+/* Poniendo un tipo no reconocido */
+CALL modifica_precio ('dfsf',20,'','');
+/* Poniendo un tipo no reconocido */
+CALL modifica_precio ('S',-20,'','');
 /* Esta llamada debería subir el precio de todos */
 CALL modifica_precio('S',20,'',NULL);
 /* Esta llamada los baja todos y los deja como estaban, aunque me sale que ha truncado el valor, por lo que no se quedan exactamente igual */

@@ -19,7 +19,7 @@ SELECT * FROM AUTOMOVILES;/*Comprobar que se han hecho correctamente las inserci
 #2
 SELECT DISTINCT Nombre_marca FROM AUTOMOVILES WHERE Nombre_marca LIKE '%L%';/* Consulta de las marcas que contienen L, creo que aquí está bien un Distinct para no repetir */
 #3
-SELECT * FROM AUTOMOVILES WHERE Precio BETWEEN 32000 AND 37000;/*Automoviles con precio entre 32000 y 37000 */
+SELECT * FROM AUTOMOVILES WHERE Precio BETWEEN 32000 AND 36999;/*Automoviles con precio entre 32000 y 37000 */
 #4
 /* Creación de la tabla MODELOS */
 CREATE TABLE MODELOS (
