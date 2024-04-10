@@ -1,13 +1,11 @@
 package com.ejercicios.app.ws.ui.controller;
 //Imports de la clase
+import com.ejercicios.app.ws.model.request.PersonDetailsRequestModel;
 import com.ejercicios.app.ws.model.response.PersonRest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -46,5 +44,18 @@ public class PersonController {
             return new ResponseEntity<PersonRest>(people.get(personId), HttpStatus.OK);
         }
         return new ResponseEntity<PersonRest>(people.get(personId),HttpStatus.NO_CONTENT);*/
+    }
+    //Breakpoint para el método POST, aquí añadiremos una persona cuando nos llegue su respectiva petición HTTP
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    //@RequestBody hace que cojamos el JSON que va en el cuerpo de la solicitud y lo transformemos en un objeto Java para poder manipularlo
+    public void createPerson(@RequestBody PersonDetailsRequestModel personDetails){
+        System.out.println("{");
+        System.out.println("\t"+personDetails.getPersonId()+",");
+        System.out.println("\t"+personDetails.getLastName()+",");
+        System.out.println("\t"+personDetails.getSecondLastName()+",");
+        System.out.println("\t"+personDetails.getCompleteName()+",");
+        System.out.println("\t"+personDetails.getBirthDate()+",");
+        System.out.println("\t"+personDetails.getSex());
+        System.out.println("}");
     }
 }
