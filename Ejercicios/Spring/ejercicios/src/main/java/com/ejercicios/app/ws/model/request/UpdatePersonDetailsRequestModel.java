@@ -1,28 +1,22 @@
-package com.ejercicios.app.ws.model.response;
+package com.ejercicios.app.ws.model.request;
 
 import java.util.Date;
 
-//Clase de Persona, este tipo de dato será el devuelto cuando se haga una petición GET
-public class PersonRest {
+public class UpdatePersonDetailsRequestModel {
     //Atributos
     private String firstName;
     private String lastName;
     private String secondLastName;
-    String completeName;
     private Date birthDate;
     private String sex;
     private String Dni;
 
-    public PersonRest(String firstName,String lastName,String secondLastName, Date birthDate, String sex, String Dni){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.secondLastName = secondLastName;
-        this.birthDate = birthDate;
-        this.sex = sex;
-        this.Dni = Dni;
+    public String getDni() {
+        return Dni;
     }
-    public PersonRest(){
 
+    public void setDni(String dni) {
+        Dni = dni;
     }
 
     //Getters y Setters
@@ -50,14 +44,6 @@ public class PersonRest {
         this.secondLastName = secondLastName;
     }
 
-    // Aquí he puesto que el get sea la concatenación de el nombre y apellidos
-    public String getCompleteName() {
-        return firstName + " " + lastName + " " + secondLastName;
-    }
-    public void setCompleteName() {
-        this.completeName = getCompleteName();
-    }
-
     public Date getBirthDate() {
         return birthDate;
     }
@@ -73,14 +59,5 @@ public class PersonRest {
     public void setSex(String sex) {
         this.sex = sex;
     }
-
-    public String getDni() {
-        return Dni;
-    }
-
-    public void setDni(String Dni) {
-        this.Dni = Dni;
-    }
-
 
 }
