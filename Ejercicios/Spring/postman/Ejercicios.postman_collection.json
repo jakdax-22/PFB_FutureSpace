@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "2318fcd0-64da-4178-a9f5-8937d9bb008f",
+		"name": "Ejercicios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26822380"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/people/77777777F",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Enrique\",\r\n    \"lastName\": \"Iranzo\",\r\n    \"secondLastName\": \"Probando\",\r\n    \"completeName\": \"Enrique Iranzo Martínez\",\r\n    \"birthDate\": null,\r\n    \"sex\": \"Male\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/people/77777777F",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people",
+						"77777777F"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/people/77777777F",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Enrique\",\r\n    \"lastName\": \"Iranzo\",\r\n    \"secondLastName\": \"Probando\",\r\n    \"completeName\": \"Enrique Iranzo Martínez\",\r\n    \"birthDate\": null,\r\n    \"sex\": \"Male\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/people/77777777F",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people",
+						"77777777F"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/people",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Enrique\",\r\n    \"lastName\": \"Iranzo\",\r\n    \"secondLastName\": \"Probando\",\r\n    \"completeName\": \"Enrique Iranzo Martínez\",\r\n    \"birthDate\": null,\r\n    \"sex\": \"Male\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/people",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/people",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Enrique\",\r\n    \"lastName\": \"Iranzo\",\r\n    \"secondLastName\": \"Probando\",\r\n    \"completeName\": \"Enrique Iranzo Martínez\",\r\n    \"birthDate\": null,\r\n    \"sex\": \"Male\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/people",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"people"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
