@@ -11,15 +11,6 @@ public class PersonRest {
     String completeName;
     private Date birthDate;
     private String sex;
-    private String personId;
-
-    public String getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(String personId) {
-        this.personId = personId;
-    }
 
     //Getters y Setters
     public String getFirstName() {

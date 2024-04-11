@@ -27,12 +27,11 @@ public class PersonController {
 
         }
      */
-    //Breakpoint para sacar los datos de una persona específica, por su id del Map
-    @GetMapping(path = "/{personId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity <PersonRest> getPerson(@PathVariable String personId){
-        //Prueba para comprobar que funciona el breakpoint de coger un usuario, cuando haga el breakpoint de POST lo comentaré, porque ya no tendrá mucho sentido
+    //Breakpoint para sacar los datos de una persona, sin coger un identificador
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity <PersonRest> getPerson(){
+        //Prueba para comprobar que funciona el breakpoint de coger un usuario
         PersonRest returnValue = new PersonRest();
-        returnValue.setPersonId("1");
         returnValue.setFirstName("Enrique");
         returnValue.setLastName("Iranzo");
         returnValue.setSecondLastName("Martínez");
@@ -40,17 +39,12 @@ public class PersonController {
         returnValue.setSex("Male");
 
         return new ResponseEntity<PersonRest>(returnValue,HttpStatus.OK);
-        /*if (people.containsKey(personId)){
-            return new ResponseEntity<PersonRest>(people.get(personId), HttpStatus.OK);
-        }
-        return new ResponseEntity<PersonRest>(people.get(personId),HttpStatus.NO_CONTENT);*/
     }
     //Breakpoint para el método POST, aquí añadiremos una persona cuando nos llegue su respectiva petición HTTP
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     //@RequestBody hace que cojamos el JSON que va en el cuerpo de la solicitud y lo transformemos en un objeto Java para poder manipularlo
     public void createPerson(@RequestBody PersonDetailsRequestModel personDetails){
         System.out.println("{");
-        System.out.println("\t"+personDetails.getPersonId()+",");
         System.out.println("\t"+personDetails.getLastName()+",");
         System.out.println("\t"+personDetails.getSecondLastName()+",");
         System.out.println("\t"+personDetails.getCompleteName()+",");
