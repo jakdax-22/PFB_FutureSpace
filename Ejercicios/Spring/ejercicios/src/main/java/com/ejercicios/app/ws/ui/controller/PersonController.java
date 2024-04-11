@@ -22,12 +22,13 @@ public class PersonController {
     //Establecemos los breakpoints
 
     //Este es un añadido que quería hacer yo si me sobraba tiempo, para practicar
-    /*
-        @GetMapping
-        public ResponseEntity <PersonRest> getPeople(){
-
-        }
-     */
+        /*@GetMapping(path="/{all}")
+        public ResponseEntity <ArrayList<PersonRest>> getPeople(){
+            if (peopleList.isEmpty()){
+                return new ResponseEntity <ArrayList<PersonRest>> (people.getPeopleList(),HttpStatus.OK);
+            }
+            return new ResponseEntity<ArrayList<PersonRest>>(HttpStatus.NO_CONTENT);
+        }*/
     //Breakpoint para sacar los datos de una persona, sin coger un identificador
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity <PersonRest> getPerson(){
