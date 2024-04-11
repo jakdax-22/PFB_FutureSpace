@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 
 //Para usar Autowired tengo que decir que esta clase es un servicio
 @Service
@@ -70,6 +72,12 @@ public class PersonServiceImp implements PersonService {
             }
         }
         return new ResponseEntity<UpdatePersonDetailsRequestModel>(HttpStatus.OK);
+    }
+    public ResponseEntity <ArrayList<PersonRest>> getPeople(){
+        if (people.getPeopleList().isEmpty()){
+            return new ResponseEntity<ArrayList<PersonRest>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity <ArrayList<PersonRest>> (people.getPeopleList(),HttpStatus.OK);
     }
 
     }
