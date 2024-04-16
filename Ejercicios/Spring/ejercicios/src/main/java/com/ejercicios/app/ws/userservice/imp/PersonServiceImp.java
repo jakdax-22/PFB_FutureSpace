@@ -75,8 +75,10 @@ public class PersonServiceImp implements PersonService {
     }
     public ResponseEntity <ArrayList<PersonRest>> getPeople(){
         if (people.getPeopleList().isEmpty()){
+            System.out.println("Entra");
             return new ResponseEntity<ArrayList<PersonRest>>(HttpStatus.NO_CONTENT);
         }
+        System.out.println("No entra al if");
         return new ResponseEntity <ArrayList<PersonRest>> (people.getPeopleList(),HttpStatus.OK);
     }
 
