@@ -18,6 +18,9 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class DataBaseConfig {
 
+    @Autowired
+    private Environment env;
+
     /**
      * DataSource definition for database connection. Settings are read from
      * the application.properties file (using the env object).
@@ -40,7 +43,8 @@ public class DataBaseConfig {
         LocalContainerEntityManagerFactoryBean entityManagerFactory =
                 new LocalContainerEntityManagerFactoryBean();
 
-        entityManagerFactory.setDataSource(dataSource);
+        entityManagerFactory.setDataSource(dataSource());
+        entityManagerFactory.setPackagesToScan("entitymanager.packagesToScan");
 
         // Classpath scanning of @Component, @Service, etc annotated class
         entityManagerFactory.setPackagesToScan(
@@ -70,7 +74,7 @@ public class DataBaseConfig {
      * Declare the transaction manager.
      */
     @Bean
-    public JpaTransactionManager transactionManager() {
+    public JpaTransactionManager transactionManager(LocalContainerEntityManagerFactoryBean entityManagerFactory) {
         JpaTransactionManager transactionManager =
                 new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(
@@ -89,16 +93,5 @@ public class DataBaseConfig {
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
     }
-
-    // Private fields
-
-    @Autowired
-    private Environment env;
-
-    @Autowired
-    private DataSource dataSource;
-
-    @Autowired
-    private LocalContainerEntityManagerFactoryBean entityManagerFactory;
 
 }

@@ -1,0 +1,373 @@
+{
+	"info": {
+		"_postman_id": "cc14a119-ac03-4fef-a050-c3f1c24537d9",
+		"name": "Ejercicios JPA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26822380"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/book",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"ISBN\": \"87919878\",\r\n        \"title\": \"Prueba 1\",\r\n        \"publicationDate\":2001,\r\n        \"author\":1 ,\r\n        \"publisher\":1,\r\n        \"topic\":1\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/book",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/author",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"name\": \"JDSKJSD\",\r\n        \"lastName\": \"Pérez\",\r\n        \"birthDate\": \"1988-09-22\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/author",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"author"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/publisher",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"name\": \"PLANETA\",\r\n        \"socialReason\": null\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/publisher",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"publisher"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/topic",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"name\": \"Historia\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/topic",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"topic"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/author",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"ISBN\": \"87919878\",\r\n        \"title\": \"Prueba 1\",\r\n        \"publicationDate\":2001,\r\n        \"author\":1 ,\r\n        \"publisher\":1,\r\n        \"topic\":1\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/author",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"author"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/publisher",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"ISBN\": \"87919878\",\r\n        \"title\": \"Prueba 1\",\r\n        \"publicationDate\":2001,\r\n        \"author\":1 ,\r\n        \"publisher\":1,\r\n        \"topic\":1\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/publisher",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"publisher"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/topic",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"ISBN\": \"87919878\",\r\n        \"title\": \"Prueba 1\",\r\n        \"publicationDate\":2001,\r\n        \"author\":1 ,\r\n        \"publisher\":1,\r\n        \"topic\":1\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/topic",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"topic"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/book",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"title\": \"Prueba 1\",\r\n        \"publicationDate\":2001,\r\n        \"author\":{\r\n            \"id\": 1,\r\n            \"name\": \"JDSKJSD\",\r\n            \"lastName\": \"Pérez\",\r\n            \"birthDate\": \"1988-09-22\"\r\n        },\r\n        \"publisher\":{\r\n            \"id\": 2,\r\n            \"name\": \"PLANETA\",\r\n            \"socialReason\": null\r\n        },\r\n        \"topic\":{\r\n            \"id\": 1,\r\n            \"name\": \"Historia\"\r\n        }\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/book",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/book/after2002",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"title\": \"Prueba ejercicio 4\",\r\n        \"publicationDate\":2003,\r\n        \"author\":{\r\n            \"id\": 1\r\n        },\r\n        \"publisher\":{\r\n            \"id\": 2\r\n        },\r\n        \"topic\":{\r\n            \"id\": 1\r\n        }\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/book/afteryear/2001",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"book",
+						"afteryear",
+						"2001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/book/after2001Method",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/book/after2001Method",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"book",
+						"after2001Method"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/book/byISBN/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/book/byISBN/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"book",
+						"byISBN",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/book/byPublisher",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/book/byPublisher/RBA",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"book",
+						"byPublisher",
+						"RBA"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/book/byPublisherAndDate/1986",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/book/byPublisherAndDate/1986",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"book",
+						"byPublisherAndDate",
+						"1986"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
