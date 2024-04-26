@@ -11,9 +11,17 @@ export default new Vuex.Store({
     //Si está cargando o no
     loading:false,
     //Si hay error
-    error:null
+    error:null,
+    //Array de artistas
+    artists:[],
+    //mostrar o no mostrar form
+    formArtists : false
   },
   getters: {
+    //Getter de artistas
+    getArtists(state){
+      return state.artists;
+    }
   },
   mutations: {
     SET_CHARACTERS(state,characters){
@@ -24,6 +32,12 @@ export default new Vuex.Store({
     },
     SET_ERROR(state,error){
       state.error = error;
+    },
+    SET_ARTISTS(state,artists){
+      state.artists = artists;
+    },
+    SWITCH_FORM_ARTISTS(state){
+      state.formArtists = !state.formArtists
     }
   },
   actions: {
@@ -48,6 +62,47 @@ export default new Vuex.Store({
       finally{
         commit('SET_LOADING', false);
       }
+    },
+    //Función para añadir un nuevo artista
+    addArtist({commit,getters},newArtist){
+      const artist = {
+        name: newArtist.firstName,
+        age:newArtist.age
+      }
+      //Consigo una copia
+      const artistsCopy = getters.getArtists;
+      //Meto al final lo insertado
+      artistsCopy.push(artist);
+      //Cambio el valor del atributo con setter
+      commit('SET_ARTISTS',artistsCopy);
+      //Quito el formulario
+      commit('SWITCH_FORM_ARTISTS');
+    },
+    //Función para borrar un artista del listado 
+    removeArtist({commit,getters},id){
+      //Consigo una copia
+      const artistsCopy = getters.getArtists;
+      //Borro la posición
+      artistsCopy.splice(id,1);
+      //Cambio el valor del atributo con setter
+      commit('SET_ARTISTS',artistsCopy);
+    },
+    //Función para editar artista
+    editArtist({commit,getters},editedArtist){
+      const artist = {
+        name: editedArtist.name,
+        age:editedArtist.age
+      };
+      //Consigo una copia
+      const artistsCopy = getters.getArtists;
+      //Edito la posición donde estaba
+      artistsCopy[editedArtist.id] = artist;
+      //Guardo los cambios
+      commit('SET_ARTISTS',artistsCopy);
+    },
+    //Función para cambiar la visibilidad del formulario
+    showFormArtists({ commit }){
+      commit('SWITCH_FORM_ARTISTS');
     }
   },
   modules: {

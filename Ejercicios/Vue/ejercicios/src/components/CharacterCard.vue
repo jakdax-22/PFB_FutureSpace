@@ -1,10 +1,11 @@
 <template>
+    <!--Card con las características de cada personaje-->
     <transition name="fade">
     <v-card
-          class="mx-auto"
+          class="mx-auto "
           max-width="344"
           elevation="10"
-          :color="color.house"
+          :color="color[house]"
         >
           <v-img
             height="450px"
@@ -31,13 +32,15 @@
     export default{
         name: 'CharacterCard',
         data:()=>({
+            //Array asociativo para poner un color según la casa
             color: {
-                "Gryffindor":"red-darken-4",
-                "Slytherin":"teal-darken-3",
-                "Hufflepuff":"yellow-darken-1",
-                "Ravenclaw":"indigo-accent-1"
+                "Gryffindor":"red",
+                "Slytherin":"teal",
+                "Hufflepuff":"yellow",
+                "Ravenclaw":"indigo"
             }
         }),
+        //Props que provienen del padre
         props:{
             image:String,
             name:String,
