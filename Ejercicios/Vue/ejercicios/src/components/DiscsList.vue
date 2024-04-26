@@ -5,36 +5,32 @@
             max-width="500"
         >
         <v-card-title class="d-flex justify-space-between align-center">
-            <h2>Listado de Artistas</h2>
-            <v-btn color="primary" @click="$store.dispatch('showFormArtists')">Añadir</v-btn>
+            <h2 class="mb-0">Listado de Discos</h2>
+            <v-btn color="primary" @click="$store.dispatch('showFormDiscs')">Añadir</v-btn>
         </v-card-title>
         <v-card-text>
             <v-list>
-            <!-- Mejoras en proceso
-                <v-list-item v-if="artists.length > 0">Hola
-                <v-list-item-content>
-                <v-list-item-subtitle>Empieza introduciendo nuevos artistas</v-list-item-subtitle>
-                </v-list-item-content>
-            </v-list-item>-->
-            <v-list-item v-if="artists.length > 0">
+            <v-list-item v-if="discs.length > 0">
                 <v-list-item-content >
                     <div class="d-flex justify-space-between align-center">
-                        <v-list-item-subtitle>Nombre </v-list-item-subtitle>
-                        <v-list-item-subtitle>Edad </v-list-item-subtitle>
-                        <v-list-item-subtitle>Acciones </v-list-item-subtitle>
+                        <v-list-item-subtitle class="font-weight-bold">Nombre </v-list-item-subtitle>
+                        <v-list-item-subtitle class="font-weight-bold">Año </v-list-item-subtitle>
+                        <v-list-item-subtitle class="font-weight-bold">Artista </v-list-item-subtitle>
+                        <v-list-item-subtitle class="font-weight-bold">Acciones </v-list-item-subtitle>
                     </div>
                 </v-list-item-content>
             </v-list-item>
             <v-list-item v-else>
                 <div class="d-flex justify-space-between align-center">
-                    <v-list-item-subtitle>Añade un músico para empezar :) </v-list-item-subtitle>
+                    <v-list-item-subtitle>Añade un disco para empezar :) </v-list-item-subtitle>
                 </div>
             </v-list-item>
-            <v-list-item  v-for="(item,index) of artists" :key="index">
+            <v-list-item  v-for="(item,index) of discs" :key="index">
                 <v-list-item-content >
                     <div class="d-flex justify-space-between align-center">
                         <v-list-item-subtitle>{{ item.name }} </v-list-item-subtitle>
-                        <v-list-item-subtitle>{{ item.age }} </v-list-item-subtitle>
+                        <v-list-item-subtitle>{{ item.year }} </v-list-item-subtitle>
+                        <v-list-item-subtitle>{{ item.artist }} </v-list-item-subtitle>
                     </div>
                 </v-list-item-content>
                 <v-list-item-action>
@@ -42,7 +38,7 @@
                         <v-btn icon @click="passParameters(item,index)">
                             <v-icon>mdi-pencil</v-icon>
                         </v-btn>
-                        <v-btn icon @click="$store.dispatch('removeArtist',index)">
+                        <v-btn icon @click="$store.dispatch('removeDisc',index)">
                             <v-icon>mdi-delete</v-icon>
                         </v-btn>
                     </div>
@@ -59,14 +55,21 @@
         width="500px"
         >
         <v-card>
-            <v-card-title>Editar Artista</v-card-title>
+            <v-card-title>Editar Disco</v-card-title>
             <v-card-text>
                 <v-form>
-                    <v-text-field v-model="editedArtist.name" label="Nombre" :placeholder="editedArtist.name"></v-text-field>
-                    <v-text-field v-model="editedArtist.age" label="Edad" :placeholder="editedArtist.age"></v-text-field>
+                    <v-text-field v-model="editedDisc.name" label="Nombre" :placeholder="editedDisc.name"></v-text-field>
+                    <v-text-field v-model="editedDisc.year" label="Año" :placeholder="editedDisc.year"></v-text-field>
+                    <v-select
+                    :items="artists"
+                    v-model="editedDisc.artist"
+                    item-text="name"
+                    density="compact"
+                    label="Artista"
+                    ></v-select>
                 </v-form>
                 <div class="d-flex justify-space-between align-center">
-                    <v-btn color="primary" @click="$store.dispatch('editArtist',editedArtist);dialog=false" type="submit">Guardar</v-btn>
+                    <v-btn color="primary" @click="$store.dispatch('editDisc',editedDisc);dialog=false" type="submit">Guardar</v-btn>
                     <v-btn @click="dialog=false" >Cancelar</v-btn>
                 </div>
             </v-card-text>
@@ -81,26 +84,31 @@
         name:"DiscsList",
         data:()=>({
             dialog:false,
-            editedArtist:{
+            editedDisc:{
                 id:22,
                 name:"plantilla",
-                age:22
+                artist:"",
+                year:22
             }
         }),
         computed:{
+            discs(){
+                return this.$store.state.discs;
+            },
             artists(){
                 return this.$store.state.artists;
-            },
+            }
         },
         methods:{
-            passParameters(artist,id){
-                this.editedArtist = {
+            passParameters(disc,id){
+                this.editedDisc = {
                     id,
-                    name:artist.name,
-                    age:artist.age
+                    name:disc.name,
+                    year:disc.year,
+                    artist:disc.artist
                 }
                 this.dialog = true;
             }
-        }
+        },
     }
 </script>

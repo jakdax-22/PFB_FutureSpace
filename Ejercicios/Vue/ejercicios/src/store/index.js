@@ -15,12 +15,20 @@ export default new Vuex.Store({
     //Array de artistas
     artists:[],
     //mostrar o no mostrar form
-    formArtists : false
+    formArtists : false,
+    //Array de discos
+    discs: [],
+    //Mostrar o no form de discos
+    formDiscs: false,
   },
   getters: {
     //Getter de artistas
     getArtists(state){
       return state.artists;
+    },
+    //Getter de discos
+    getDiscs(state){
+      return state.discs
     }
   },
   mutations: {
@@ -38,7 +46,14 @@ export default new Vuex.Store({
     },
     SWITCH_FORM_ARTISTS(state){
       state.formArtists = !state.formArtists
-    }
+    },
+    SET_DISCS(state,discs){
+      state.discs = discs;
+    },
+    SWITCH_FORM_DISCS(state){
+      state.formDiscs = !state.formDiscs
+    },
+
   },
   actions: {
     //Función para hacer fetch con axios
@@ -103,7 +118,47 @@ export default new Vuex.Store({
     //Función para cambiar la visibilidad del formulario
     showFormArtists({ commit }){
       commit('SWITCH_FORM_ARTISTS');
-    }
+    },
+    showFormDiscs({ commit }){
+      commit('SWITCH_FORM_DISCS');
+    },
+    //Función para añadir un nuevo disco
+    addDisc({commit,getters},newDisc){
+      const disc = {
+        name: newDisc.name,
+        artist: newDisc.artist,
+        year:newDisc.year,
+      }
+      //Consigo una copia
+      const discsCopy = getters.getDiscs;
+      //Meto al final lo insertado
+      discsCopy.push(disc);
+      //Cambio el valor del atributo con setter
+      commit('SET_DISCS',discsCopy);
+      //Quito el formulario
+      commit('SWITCH_FORM_DISCS');
+    },
+    editDisc({commit,getters},editedDisc){
+      const disc = {
+        name: editedDisc.name,
+        artist:editedDisc.artist,
+        year:editedDisc.year,
+      };
+      //Consigo una copia
+      const discsCopy = getters.getDiscs;
+      //Edito la posición donde estaba
+      discsCopy[editedDisc.id] = disc;
+      //Guardo los cambios
+      commit('SET_DISCS',discsCopy);
+    },
+    removeDisc({commit,getters},id){
+      //Consigo una copia
+      const discsCopy = getters.getDiscs;
+      //Borro la posición
+      discsCopy.splice(id,1);
+      //Cambio el valor del atributo con setter
+      commit('SET_DISCS',discsCopy);
+    },
   },
   modules: {
   }

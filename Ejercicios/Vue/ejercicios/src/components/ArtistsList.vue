@@ -5,40 +5,34 @@
             max-width="500"
         >
         <v-card-title class="d-flex justify-space-between align-center">
-            <h2>Listado de Artistas</h2>
+            <h2 class="mb-0">Listado de Artistas</h2>
             <v-btn color="primary" @click="$store.dispatch('showFormArtists')">Añadir</v-btn>
         </v-card-title>
         <v-card-text>
             <v-list>
-            <!-- Mejoras en proceso
-                <v-list-item v-if="artists.length > 0">Hola
-                <v-list-item-content>
-                <v-list-item-subtitle>Empieza introduciendo nuevos artistas</v-list-item-subtitle>
-                </v-list-item-content>
-            </v-list-item>-->
             <v-list-item v-if="artists.length > 0">
                 <v-list-item-content >
-                    <div class="d-flex justify-space-between align-center">
-                        <v-list-item-subtitle>Nombre </v-list-item-subtitle>
-                        <v-list-item-subtitle>Edad </v-list-item-subtitle>
-                        <v-list-item-subtitle>Acciones </v-list-item-subtitle>
+                    <div class="row justify-content-center">
+                        <v-list-item-subtitle class="col cols-4">Nombre </v-list-item-subtitle>
+                        <v-list-item-subtitle class="col cols-4">Edad </v-list-item-subtitle>
+                        <v-list-item-subtitle class="col cols-4">Acciones </v-list-item-subtitle>
                     </div>
                 </v-list-item-content>
             </v-list-item>
             <v-list-item v-else>
                 <div class="d-flex justify-space-between align-center">
-                    <v-list-item-subtitle>Añade un músico para empezar :) </v-list-item-subtitle>
+                    <v-list-item-subtitle>Añade un artista para empezar :) </v-list-item-subtitle>
                 </div>
             </v-list-item>
             <v-list-item  v-for="(item,index) of artists" :key="index">
                 <v-list-item-content >
-                    <div class="d-flex justify-space-between align-center">
-                        <v-list-item-subtitle>{{ item.name }} </v-list-item-subtitle>
-                        <v-list-item-subtitle>{{ item.age }} </v-list-item-subtitle>
+                    <div class="row justify-content-center">
+                        <v-list-item-subtitle class="col cols-4">{{ item.name }} </v-list-item-subtitle>
+                        <v-list-item-subtitle class="col cols-4">{{ item.age }} </v-list-item-subtitle>
                     </div>
                 </v-list-item-content>
                 <v-list-item-action>
-                    <div class="d-flex justify-space-between align-center">
+                    <div class="d-flex justify-space-between align-center col cols-4">
                         <v-btn icon @click="passParameters(item,index)">
                             <v-icon>mdi-pencil</v-icon>
                         </v-btn>
