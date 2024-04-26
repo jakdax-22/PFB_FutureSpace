@@ -78,7 +78,7 @@
 </template>
 <script>
     export default{
-        name:"ArtistList",
+        name:"DiscsList",
         data:()=>({
             dialog:false,
             editedArtist:{

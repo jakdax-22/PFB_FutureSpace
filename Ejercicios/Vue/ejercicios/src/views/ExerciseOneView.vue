@@ -4,6 +4,9 @@
           <v-col cols="6">
             <ArtistsList/>
           </v-col>
+          <v-col cols="6">
+            <DiscsList/>
+          </v-col>
           <v-col v-if="formArtists" cols="6">
             <FormArtist/>
           </v-col>
@@ -13,6 +16,7 @@
 
 <script>
 import ArtistsList from '@/components/ArtistsList.vue';
+import DiscsList from '@/components/DiscsList.vue';
 import FormArtist from '@/components/FormArtist.vue';
 
   export default {
@@ -20,8 +24,9 @@ import FormArtist from '@/components/FormArtist.vue';
 
     components: {
     ArtistsList,
-    FormArtist
-  },
+    FormArtist,
+    DiscsList
+},
     data: ()=>({
 
     }),
