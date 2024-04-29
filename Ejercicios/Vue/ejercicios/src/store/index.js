@@ -161,5 +161,24 @@ export default new Vuex.Store({
     },
   },
   modules: {
-  }
+  },
+  /*
+  No es necesario hacerlo
+  watch: {
+    'state.artists'(newArtists) {
+      const discs = this.state.discs;
+      const updatedDiscs = discs.map(disc => {
+        if (newArtists.find(artist => artist.name == disc.artist)){
+          return disc;
+        }
+        else {
+          return {
+            ...disc,
+            artist: 'Artista no encontrado'
+          };
+        }
+      });
+      this.commit('SET_DISCS',updatedDiscs)
+    }
+  }*/
 })

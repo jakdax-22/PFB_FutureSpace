@@ -1,3 +1,4 @@
+<!--Vista del ejercicio 1, simplemente hace un grid con los 4 componenentes-->
 <template>
     <div>
         <v-row class="mt-2">

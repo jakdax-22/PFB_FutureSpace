@@ -1,3 +1,4 @@
+<!--Componente encargado de mostrar el formulario de los discos con su correspondiente lógica de validación-->
 <template>
     <v-sheet class="mx-auto" width="300">
       <v-form fast-fail @submit.prevent>
@@ -19,7 +20,7 @@
             density="compact"
             label="Artista"
         ></v-select>
-        <v-btn v-show="year && name" class="mt-2" @click="$store.dispatch('addDisc',{name,artist,year})" block>Insertar</v-btn>
+        <v-btn :disabled="!year || !name || !artist" class="mt-2" @click="$store.dispatch('addDisc',{name,artist,year})" block>Insertar</v-btn>
       </v-form>
     </v-sheet>
   </template>
