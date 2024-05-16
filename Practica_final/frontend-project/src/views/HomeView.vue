@@ -1,13 +1,15 @@
 <template>
-  <EmployeesList/>
+  <AsignationList/>
 </template>
 
 <script>
+import AsignationList from '@/components/AsignationList.vue';
 import EmployeesList from '@/components/EmployeesList.vue';
+import ProjectList from '@/components/ProjectList.vue';
 
 
   export default {
     name: 'Home',
-    components: { EmployeesList }
+    components: { EmployeesList, ProjectList, AsignationList }
 }
 </script>

@@ -3,9 +3,9 @@ package com.backend_project.controllers;
 import com.backend_project.model.Employee;
 import com.backend_project.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +21,16 @@ public class EmployeesController {
     //Devuelve la lista de los empleados activos
     public List<Employee> getAllEmployees(){
         return employeeService.getAllActiveEmployees();
+    }
+    @PostMapping
+    //Inserta un nuevo empleado a la BD
+    public ResponseEntity<String> insertEmployee(@RequestBody Employee employee){
+        //System.out.println("employee: "+employee);
+        return employeeService.insertEmployee(employee);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<String> terminateEmployee(@PathVariable Integer id){
+        return employeeService.terminateEmployee(id);
     }
 }
 

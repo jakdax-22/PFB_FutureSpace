@@ -1,10 +1,11 @@
 package com.backend_project.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 //Modelo de la clase empleado con sus atributos, constructor y métodos
 //Mapear la entidad y todas las columnas
 @Entity(name = "em_empleados")
@@ -12,6 +13,7 @@ public class Employee {
     //Atributos
     @Id
     @Column(name="ID_EMPLEADO")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer employeeId;
     @Column(name="TX_NIF")
     private String nif;
@@ -31,15 +33,21 @@ public class Employee {
     private String email;
     @Column(name="F_ALTA")
     private Date registrationDate;
-    @Column(name="F_BAJA")
+    @Column(name="F_BAJA", nullable = true)
     private Date endDate;
     @Column(name="CX_EDOCIVIL")
-    private char civilStatement;
+    private char civilState;
     @Column(name="B_SERVMILITAR")
     private char militarService;
 
+    @ManyToMany()
+    @JoinTable(name="pr_empleados_proyecto",
+            joinColumns = @JoinColumn(name="ID_EMPLEADO"),
+            inverseJoinColumns = @JoinColumn(name = "ID_PROYECTO"))
+    private Set<Project> projects = new HashSet<>();
+
     //Constructor de la clase
-    public Employee(String nif, String name, String lastName, String secondLastName, Date birthDate, String firstNumber, String secondNumber, String email, Date registrationDate, Date endDate, char civilStatement, char militarService) {
+    public Employee(String nif, String name, String lastName, String secondLastName, Date birthDate, String firstNumber, String secondNumber, String email, Date registrationDate, Date endDate, char civilState, char militarService) {
         this.nif = nif;
         this.name = name;
         this.lastName = lastName;
@@ -50,10 +58,15 @@ public class Employee {
         this.email = email;
         this.registrationDate = registrationDate;
         this.endDate = endDate;
-        this.civilStatement = civilStatement;
+        this.civilState = civilState;
         this.militarService = militarService;
     }
     //Constructor por defecto
+
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
+    }
+
     public Employee(){
 
     }
@@ -138,12 +151,12 @@ public class Employee {
         this.endDate = endDate;
     }
 
-    public char getCivilStatement() {
-        return civilStatement;
+    public char getCivilState() {
+        return civilState;
     }
 
-    public void setCivilStatement(char civilStatement) {
-        this.civilStatement = civilStatement;
+    public void setCivilState(char civilState) {
+        this.civilState = civilState;
     }
 
     public char getMilitarService() {
@@ -152,5 +165,28 @@ public class Employee {
 
     public void setMilitarService(char militarService) {
         this.militarService = militarService;
+    }
+
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employeeId=" + employeeId +
+                ", nif='" + nif + '\'' +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", secondLastName='" + secondLastName + '\'' +
+                ", birthDate=" + birthDate +
+                ", firstNumber='" + firstNumber + '\'' +
+                ", secondNumber='" + secondNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", registrationDate=" + registrationDate +
+                ", endDate=" + endDate +
+                ", civilState=" + civilState +
+                ", militarService=" + militarService +
+                '}';
     }
 }
