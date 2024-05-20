@@ -4,14 +4,10 @@
             <v-row>
                 <v-card class="mt-6 customcardwidth">
                     <v-card-title>
-                        <v-row>
-                            <v-col cols="12">
-                                Asignación de Empleados a Proyectos
-                            </v-col>
-                        </v-row>
-                        <v-row>
-                            <v-col cols="12">
-                            <v-text-field
+                        Asignación de Empleados a Proyectos
+                    </v-card-title>
+                    <v-card-subtitle>
+                        <v-text-field
                             v-model="search"
                             label="Buscar proyecto por descripción"
                             clearable
@@ -20,9 +16,7 @@
                             >
 
                             </v-text-field>
-                            </v-col>
-                        </v-row>
-                    </v-card-title>
+                    </v-card-subtitle>
                     <v-card-text>
                         <v-col cols="12">
                     <v-expansion-panels v-model="activePanel">
@@ -186,12 +180,12 @@
 
             },
             searchProjects(){
-                if (this.search === ''){
+                if (!this.search || this.search === ''){
                     this.filteredProjects = this.projects;
                 }
                 else {
                     this.filteredProjects = this.projects.filter(project => {
-                        project.description.toLowerCase().includes(this.search.toLowerCase());
+                        return project.description.toLowerCase().includes(this.search.toLowerCase());
                     })
                 }
             }
