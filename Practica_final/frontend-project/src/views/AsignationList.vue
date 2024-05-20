@@ -1,12 +1,33 @@
 <template>
     <div>
-        <h1>Asignación de Empleados a Proyectos</h1>
-        <v-container>
+        <v-container class="d-flex flex-column align-center justify-center">
             <v-row>
-                <v-col cols="12" sm="6">
+                <v-card class="mt-6 customcardwidth">
+                    <v-card-title>
+                        <v-row>
+                            <v-col cols="12">
+                                Asignación de Empleados a Proyectos
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col cols="12">
+                            <v-text-field
+                            v-model="search"
+                            label="Buscar proyecto por descripción"
+                            clearable
+                            append-icon="mdi-magnify"
+                            @input="searchProjects"
+                            >
+
+                            </v-text-field>
+                            </v-col>
+                        </v-row>
+                    </v-card-title>
+                    <v-card-text>
+                        <v-col cols="12">
                     <v-expansion-panels v-model="activePanel">
                         <v-expansion-panel
-                        v-for="project in projects"
+                        v-for="project in paginatedProjects"
                         :key="project.projectId"
                         >
                         <v-expansion-panel-header @click="getAsignations(project.projectId)">
@@ -29,6 +50,15 @@
                         </v-expansion-panel>
                     </v-expansion-panels>
                 </v-col>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-pagination
+                        v-model="projectPage"
+                        :length="projectPageCount">
+                            
+                        </v-pagination>
+                    </v-card-actions>
+                </v-card>
             </v-row>
             <v-row>
                 <v-col>
@@ -56,18 +86,32 @@
                     {text: 'Nombre', value:'name'},
                     {text: 'Asignado', value: 'assigned'},
                 ],
+                projectPage:1,
+                itemsPerPage:5,
+                filteredProjects:[],
+                search:'',
 
             }
         },
         mounted(){
             this.fetchProjects();
         },
+        computed:{
+            paginatedProjects(){
+                const start = (this.projectPage - 1) * this.itemsPerPage;
+                const end = start + this.itemsPerPage;
+                return this.filteredProjects.slice(start,end);
+            },
+            projectPageCount(){
+                return Math.ceil(this.filteredProjects.length / this.itemsPerPage);
+            }
+        },
         methods: {
             async fetchProjects(){
                 try{
                     const response = await axios.get('http://localhost:8080/project/active');
                     this.projects = response.data;
-                    
+                    this.filteredProjects = this.projects;
                 }
                 catch(error){
                     console.log(error)
@@ -140,7 +184,24 @@
                     }
                 }
 
+            },
+            searchProjects(){
+                if (this.search === ''){
+                    this.filteredProjects = this.projects;
+                }
+                else {
+                    this.filteredProjects = this.projects.filter(project => {
+                        project.description.toLowerCase().includes(this.search.toLowerCase());
+                    })
+                }
             }
         }
+
+
     }
 </script>
+<style>
+    .customcardwidth{
+        width:100%;
+    }
+</style>

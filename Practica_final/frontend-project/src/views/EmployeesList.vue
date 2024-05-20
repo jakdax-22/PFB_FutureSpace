@@ -2,32 +2,36 @@
     <div>
     <v-data-table
     :headers="headers"
-    :items="employees"
+    :items="filteredEmployees"
     class="elevation-1 mt-10">
         <template v-slot:top>
             <v-toolbar flat color="white">
-                <v-row justify="center">
-                    <v-toolbar-title class="col-6">Usuarios</v-toolbar-title>
-                    <v-btn
-                        class="col-4 mt-2"
-                        color="primary"
-                        dark
-                        @click="dialog = true"
-                        >
-                        <v-icon>mdi-account-plus</v-icon>
-                        Insertar Usuario
-                    </v-btn>
-                    <v-spacer></v-spacer>
-                    <v-text-field
-                    class="col-8 mb-12"
+              <v-row>
+                <v-col cols="4" class="d-flex align-center">
+                  <v-toolbar-title>Empleados</v-toolbar-title>
+                </v-col>
+                <v-col cols="4">
+                  <v-text-field
                     v-model="search"
                     append-icon="mdi-magnify"
-                    label="Buscar"
+                    label="Buscar por NIF"
                     single-line
-                    hide-details>
-                    </v-text-field>
-                    <v-spacer></v-spacer>
-                </v-row>
+                    hide-details
+                    clearable
+                    >
+                  </v-text-field>
+                </v-col>
+                <v-col cols="4" class="d-flex justify-end">
+                  <v-btn
+                      color="primary"
+                      dark
+                      @click="dialog = true; insertedEmployee = {}"
+                      >
+                      <v-icon>mdi-account-plus</v-icon>
+                      Insertar
+                  </v-btn>
+                </v-col>
+              </v-row>
             </v-toolbar>
         </template>
         <template v-slot:item.actions="{ item }">
@@ -37,18 +41,17 @@
     <v-row justify="center">
     <v-dialog
       v-model="dialog"
-      persistent
       max-width="600px"
     >
       <v-card>
         <v-card-title>
-          <span class="text-h5">Insertar Nuevo Usuario</span>
+          <span class="text-h5">Insertar Nuevo Empleado</span>
         </v-card-title>
         <v-card-text>
           <v-container>
             <v-row>
               <v-col
-                cols="12"
+                cols="4"
               >
                 <v-text-field
                   label="NIF"
@@ -57,9 +60,7 @@
                 ></v-text-field>
               </v-col>
               <v-col
-                cols="12"
-                sm="6"
-                md="4"
+                cols="4"
               >
                 <v-text-field
                   label="Nombre"
@@ -68,9 +69,7 @@
                 ></v-text-field>
               </v-col>
               <v-col
-                cols="12"
-                sm="6"
-                md="4"
+                cols="4"
               >
                 <v-text-field
                   label="Primer apellido"
@@ -79,9 +78,7 @@
                 ></v-text-field>
               </v-col>
               <v-col
-                cols="12"
-                sm="6"
-                md="4"
+                cols="4"
               >
                 <v-text-field
                   label="Segundo apellido"
@@ -89,21 +86,69 @@
                   v-model="insertedEmployee.secondLastName"
                 ></v-text-field>
               </v-col>
-              <v-col cols="6">
-                <v-text-field
-                  label="Fecha de nacimiento"
-                  required
-                  v-model="insertedEmployee.birthDate"
-                ></v-text-field>
+              <v-col cols="4">
+                <template>
+                  <div>
+                    <v-menu
+                      ref="menu"
+                      v-model="menu"
+                      :close-on-content-click="false"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="insertedEmployee.birthDate"
+                          label="Fecha de Nacimiento"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        >{{ insertedEmployee.birthDate }}</v-text-field>
+                      </template>
+                      <v-date-picker
+                        v-model="insertedEmployee.birthDate"
+                        :active-picker.sync="activePicker"
+                        :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substring(0, 10)"
+                        min="1950-01-01"
+                        @change="save"
+                      ></v-date-picker>
+                    </v-menu>
+                  </div>
+                </template>
               </v-col>
-              <v-col cols="6">
-                <v-text-field
-                  label="Fecha de alta"
-                  required
-                  v-model="insertedEmployee.registrationDate"
-                ></v-text-field>
+              <v-col cols="4">
+                <template>
+                  <div>
+                    <v-menu
+                      ref="menu2"
+                      v-model="menu2"
+                      :close-on-content-click="false"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="insertedEmployee.registrationDate"
+                          label="Fecha de Alta"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        >{{ insertedEmployee.registrationDate }}</v-text-field>
+                      </template>
+                      <v-date-picker
+                        v-model="insertedEmployee.registrationDate"
+                        :active-picker.sync="activePicker"
+                        :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substring(0, 10)"
+                        min="1950-01-01"
+                        @change="save"
+                      ></v-date-picker>
+                    </v-menu>
+                  </div>
+                </template>
               </v-col>
-              <v-col cols="12">
+              <v-col cols="4">
                 <v-text-field
                   label="Primer teléfono"
                   required
@@ -111,8 +156,8 @@
                 ></v-text-field>
               </v-col>
               <v-col
-                cols="12"
-                sm="6"
+                cols="4"
+              
               >
                 <v-text-field
                   label="Segundo teléfono"
@@ -121,8 +166,8 @@
                 ></v-text-field>
               </v-col>
               <v-col
-                cols="12"
-                sm="6"
+                cols="4"
+               
               >
                 <v-text-field
                   label="Email"
@@ -131,8 +176,7 @@
                 ></v-text-field>
               </v-col>
               <v-col
-                cols="12"
-                sm="6"
+                cols="4"
               >
                 <v-select
                   :items = "['Soltero','Casado']"
@@ -185,6 +229,10 @@ import Swal from 'sweetalert2'
         data(){
             return{
                 search: '',
+                activePicker: null,
+                date: null,
+                menu: false,
+                menu2: false,
                 headers: [
                     { text: 'NIF', value: 'nif' },
                     { text: 'Nombre', value: 'name' },
@@ -217,8 +265,24 @@ import Swal from 'sweetalert2'
         mounted(){
             this.getEmployees();
         },
+        watch: {
+          menu (val) {
+            val && setTimeout(() => (this.activePicker = 'YEAR'))
+          },
+        },
+        computed: {
+          filteredEmployees(){
+            if (this.search && this.search.length > 0)
+              return this.employees.filter(employee => employee.nif.toLowerCase().includes(this.search.toLowerCase()));
+            else
+              return this.employees;
+          }
+        },
         methods:{
             //Método para mandar una petición a la API y recoger todos los usuarios 
+            save (date) {
+              this.$refs.menu.save(date)
+            },
             async getEmployees(){
                 try{
                     const response = await axios.get('http://localhost:8080/employee/active');

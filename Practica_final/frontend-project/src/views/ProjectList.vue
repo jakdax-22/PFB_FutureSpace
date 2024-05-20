@@ -2,32 +2,36 @@
     <div>
     <v-data-table
     :headers="headers"
-    :items="projects"
+    :items="filteredProjects"
     class="elevation-1 mt-10">
         <template v-slot:top>
             <v-toolbar flat color="white">
-                <v-row justify="center">
-                    <v-toolbar-title class="col-6">Proyectos</v-toolbar-title>
-                    <v-btn
-                        class="col-4 mt-2"
-                        color="primary"
-                        dark
-                        @click="dialog = true"
-                        >
-                        <v-icon>mdi-account-plus</v-icon>
-                        Insertar Proyectos
-                    </v-btn>
-                    <v-spacer></v-spacer>
-                    <v-text-field
-                    class="col-8 mb-12"
+              <v-row>
+                <v-col cols="4" class="d-flex align-center">
+                  <v-toolbar-title>Proyectos</v-toolbar-title>
+                </v-col>
+                <v-col cols="4">
+                  <v-text-field
                     v-model="search"
                     append-icon="mdi-magnify"
-                    label="Buscar"
+                    label="Buscar por Descripción"
                     single-line
-                    hide-details>
-                    </v-text-field>
-                    <v-spacer></v-spacer>
-                </v-row>
+                    hide-details
+                    clearable
+                    >
+                  </v-text-field>
+                </v-col>
+                <v-col cols="4" class="d-flex justify-end">
+                  <v-btn
+                      color="primary"
+                      dark
+                      @click="dialog = true; insertedProject = {}"
+                      >
+                      <v-icon>mdi-account-plus</v-icon>
+                      Insertar
+                  </v-btn>
+                </v-col>
+              </v-row>
             </v-toolbar>
         </template>
         <template v-slot:item.actions="{ item }">
@@ -37,7 +41,6 @@
     <v-row justify="center">
     <v-dialog
       v-model="dialog"
-      persistent
       max-width="600px"
     >
       <v-card>
@@ -57,25 +60,73 @@
                 ></v-text-field>
               </v-col>
               <v-col
-                cols="12"
+                cols="6"
               >
-                <v-text-field
-                  label="Fecha de inicio"
-                  required
-                  v-model="insertedProject.startDate"
-                ></v-text-field>
+              <template>
+                  <div>
+                    <v-menu
+                      ref="menu"
+                      v-model="menu"
+                      :close-on-content-click="false"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="insertedProject.startDate"
+                          label="Fecha de Alta"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        >{{ insertedProject.startDate }}</v-text-field>
+                      </template>
+                      <v-date-picker
+                        v-model="insertedProject.startDate"
+                        :active-picker.sync="activePicker"
+                        :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substring(0, 10)"
+                        min="1950-01-01"
+                        @change="save"
+                      ></v-date-picker>
+                    </v-menu>
+                  </div>
+                </template>
               </v-col>
               <v-col
-                cols="12"
+                cols="6"
               >
-                <v-text-field
-                  label="Fecha de finalización"
-                  required
-                  v-model="insertedProject.endDate"
-                ></v-text-field>
+              <template>
+                  <div>
+                    <v-menu
+                      ref="menu2"
+                      v-model="menu2"
+                      :close-on-content-click="false"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="insertedProject.endDate"
+                          label="Fecha de Finalización"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        >{{ insertedProject.endDate }}</v-text-field>
+                      </template>
+                      <v-date-picker
+                        v-model="insertedProject.endDate"
+                        :active-picker.sync="activePicker"
+                        :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substring(0, 10)"
+                        min="1950-01-01"
+                        @change="save"
+                      ></v-date-picker>
+                    </v-menu>
+                  </div>
+                </template>
               </v-col>
               <v-col
-                cols="12"
+                cols="6"
               >
                 <v-text-field
                   label="Lugar"
@@ -84,7 +135,7 @@
                 ></v-text-field>
             </v-col>
               <v-col
-                cols="12"
+                cols="6"
               >
                 <v-textarea
                   label="Observaciones"
@@ -125,6 +176,10 @@ import Swal from 'sweetalert2'
         data(){
             return{
                 search: '',
+                activePicker: null,
+                date: null,
+                menu: false,
+                menu2: false,
                 headers: [
                     { text: 'Descripción', value: 'description' },
                     { text: 'Fecha de Inicio', value: 'startDate' },
@@ -146,6 +201,14 @@ import Swal from 'sweetalert2'
         },
         mounted(){
             this.getProjects();
+        },
+        computed: {
+          filteredProjects(){
+            if (this.search && this.search.length > 0)
+              return this.projects.filter(project => project.description.toLowerCase().includes(this.search.toLowerCase()));
+            else
+              return this.projects;
+          }
         },
         methods:{
             //Método para mandar una petición a la API y recoger todos los usuarios 
