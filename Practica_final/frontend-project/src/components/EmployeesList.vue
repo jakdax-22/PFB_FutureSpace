@@ -278,8 +278,9 @@ import Swal from 'sweetalert2'
                     this.getEmployees();
                 }
                   catch (error){
-                      //Manejar error
-                      Swal.fire("Error","Error al dar de baja el usuario",'error');
+                    if (error.code === "ERR_BAD_REQUEST"){
+                        Swal.fire("Error",error.response.data,'error');
+                      }
                   }
                   }
             }

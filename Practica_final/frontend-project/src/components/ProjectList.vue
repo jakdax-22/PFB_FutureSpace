@@ -83,6 +83,15 @@
                   v-model="insertedProject.place"
                 ></v-text-field>
             </v-col>
+              <v-col
+                cols="12"
+              >
+                <v-textarea
+                  label="Observaciones"
+                  required
+                  v-model="insertedProject.observations"
+                ></v-textarea>
+            </v-col>
             </v-row>
           </v-container>
           <small>Todos los campos son obligatorios</small>
@@ -131,6 +140,7 @@ import Swal from 'sweetalert2'
                     startDate:'',
                     endDate:'',
                     place:'',
+                    observations: '',
                 }
             }
         },
@@ -193,14 +203,22 @@ import Swal from 'sweetalert2'
                   try{
                     //Enviar solicitud
                     const response = await axios.put(`http://localhost:8080/project/${id}`);
-
                     //Manejar respuesta 
-                    Swal.fire("Eliminado", "El proyecto ha sido dado de baja con éxito",'success');
-                    this.getProjects();
+                    if (response.status === 200){
+                      Swal.fire("Eliminado", response.data,'success');
+                      this.getProjects();
+                    }
+                    else if (response.data.status === 500){
+                      Swal.fire("Error",response.data.message,'error');
+                    }
                 }
                   catch (error){
+                    //console.log(error.code);
                       //Manejar error
-                      Swal.fire("Error","Error al dar de baja el proyecto",'error');
+                      if (error.code === "ERR_BAD_REQUEST"){
+                        Swal.fire("Error",error.response.data,'error');
+
+                      }
                   }
                   }
             },
