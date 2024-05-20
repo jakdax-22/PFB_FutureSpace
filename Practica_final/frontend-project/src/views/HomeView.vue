@@ -1,15 +1,28 @@
 <template>
-  <EmployeesList/>
+  <v-app id="inspire">
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+    >
+      <!--  -->
+    </v-navigation-drawer>
+
+    <v-app-bar app>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>Práctica final</v-toolbar-title>
+    </v-app-bar>
+
+    <v-main>
+      <!--  -->
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import AsignationList from '@/components/AsignationList.vue';
-import EmployeesList from '@/components/EmployeesList.vue';
-import ProjectList from '@/components/ProjectList.vue';
-
-
   export default {
     name: 'Home',
-    components: { EmployeesList, ProjectList, AsignationList }
-}
+    data: () => ({ drawer: null }),
+  }
 </script>
+
