@@ -2,6 +2,7 @@ package com.backend_project.services;
 
 import com.backend_project.model.Employee;
 import com.backend_project.model.Project;
+import com.backend_project.repositories.AsignationRepository;
 import com.backend_project.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,12 +12,16 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 //Servicio de empleado, va a tener una clase de su propio repositorio autoimplementada
 @Service
 public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    private AsignationRepository asignationRepository;
 
     public ProjectService() {
 
@@ -38,6 +43,10 @@ public class ProjectService {
         }
     }
     public ResponseEntity<String> terminateProject(Integer id){
+        if (asignationRepository.existsByProjectProjectId(id)){
+            Optional<Project> project = projectRepository.findById(id);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se puede dar de baja el proyecto " + project.get().getDescription()+ " porque tiene asignado al menos un recurso");
+        }
         try{
             //Buscar el empleado
             Project project = projectRepository.findById(id).orElseThrow(() -> new RuntimeException(("Proyecto no encontrado")));

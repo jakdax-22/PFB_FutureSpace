@@ -10,10 +10,12 @@ public class Asignation implements Serializable {
     @EmbeddedId
     private AsignationId id;
     @ManyToOne
+    @MapsId("employeeId")
     @JoinColumn(name = "ID_EMPLEADO")
     private Employee employee;
 
     @ManyToOne
+    @MapsId("projectId")
     @JoinColumn(name = "ID_PROYECTO")
     private Project project;
 
@@ -23,8 +25,8 @@ public class Asignation implements Serializable {
     //Constructor
 
 
-    public Asignation(AsignationId id, Employee employee, Project project, Date startDate) {
-        this.id = id;
+    public Asignation(Employee employee, Project project, Date startDate) {
+        this.id = new AsignationId(employee.getEmployeeId(),project.getProjectId());
         this.employee = employee;
         this.project = project;
         this.startDate = startDate;

@@ -1,0 +1,17 @@
+ID_PROYECTO,TX_DESCRIPCION,F_INICIO,F_FIN,F_BAJA,TX_LUGAR,TX_OBSERVACIONES
+1,Probando,2001-07-22,2002-04-25,2002-04-26,Aquí,Probando
+2,Probando,2001-07-22,,2002-04-25,Aquí,Probando
+3,Probando,2001-07-22,2002-04-25,2024-05-15,Aquí,Probando
+4,Probando,2001-07-22,2002-04-25,2024-05-15,Aquí,Probando
+5,Probando,2001-07-22,2002-04-25,2024-05-15,Aquí,Probando
+6,Probando,2001-07-22,2002-04-25,2024-05-15,Aquí,Probando
+7,Probando,2001-07-22,2002-04-25,2024-05-15,Aquí,Probando
+8,Probando,2001-07-22,2002-04-25,2024-05-15,Aquí,Probando
+9,Enrique,2001-07-22,2001-07-22,,Probando,
+10,Probando asignación,2001-07-22,2002-04-25,2024-05-19,Aquí,Probando
+11,Probando Observaciones,2001-07-22,2001-07-22,2024-05-19,Aquí,Se me olvidó meter el textarea de observaciones
+12,Picker,2024-05-18,2020-05-20,,Picker,Picker
+13,fsfds,2024-05-01,2024-05-06,,fdsdsf,fdsdsf
+14,fdsdsf,2024-05-17,2024-05-11,,fdsdsf,dsfdsfdsf
+15,fdsdsfdfsdf,2024-05-18,2024-05-12,,dsfdsf,fdsdsfdsf
+16,dfsdsfds,2024-05-02,2024-05-18,,dsfdsfdfs,fdsdfsfd

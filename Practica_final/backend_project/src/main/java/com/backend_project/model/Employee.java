@@ -23,7 +23,7 @@ public class Employee {
     private String lastName;
     @Column(name="TX_APELLIDO2")
     private String secondLastName;
-    @Column(name="F_NACIMIENTO")
+    @Column(name="F_NACIMIENTO", nullable = true)
     private Date birthDate;
     @Column(name="N_TELEFONO1")
     private String firstNumber;

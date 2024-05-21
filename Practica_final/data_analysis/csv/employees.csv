@@ -1,0 +1,17 @@
+ID_EMPLEADO,TX_NIF,TX_NOMBRE,TX_APELLIDO1,TX_APELLIDO2,F_NACIMIENTO,N_TELEFONO1,N_TELEFONO2,TX_EMAIL,F_ALTA,F_BAJA,CX_EDOCIVIL,B_SERVMILITAR
+1,73668312W,Enrique,Iranzo,Martínez,2001-07-22,321456987,627160256,enriqueiranzomartinez4@gmail.com,2024-04-03,,S,N
+2,85712365Q,Jennifer,García,Navarro,2002-04-25,627779919,96321584,jennifergarcianavarro@gmail.com,2024-05-01,,S,S
+3,73655183Y,Rosa María,Martínez,Díaz,1966-09-06,665789014,96321572,rosamariamartinez@gmail.com,2024-04-01,2024-05-15,C,N
+22,probando,probando,probando,probando,2001-07-22,probando,probando,probando,2024-05-14,2024-05-14,S,N
+23,probando,probando,probando,probando,2001-07-22,probando,probando,probando,2024-05-14,2024-05-14,S,N
+24,probando,probando,probando,probando,2001-07-22,probando,probando,probando,2024-05-14,2024-05-14,S,N
+25,probando,probando,probando,probando,2001-07-22,probando,probando,probando,2024-05-14,2024-05-14,S,N
+26,probando,probando,probando,probando,2001-07-22,probando,probando,probando,2024-05-14,2024-05-14,S,N
+27,probando,probando,probando,probando,2001-07-22,probando,probando,probando,2024-05-14,2024-05-14,S,N
+28,fdgfdg,sdfdfs,,fsdsdf,2001-07-22,fsddfs,fsddfs,fdsdfs,2001-07-22,2024-05-15,C,S
+29,erafs,Enrique,Iranzo,Martínez,2001-07-22,fdsfds,dsfdfs,fdsfsd,2001-07-22,2024-05-15,S,N
+30,dsfdfs,dsfdfs,fdsfds,fdsdfs,2001-07-22,dsfdsf,sdfdfs,sdfdsf,2001-07-22,2024-05-15,S,N
+31,fdsdsf,fdsdsf,dfsdsf,dfsdsf,2001-07-22,dsfds,fsddsf,dfssdsf,2001-07-22,2024-05-15,C,S
+32,78945612A,Jennifer,García,Navarro,2002-04-25,751236974,222554897,jennifergarcianavarro@gmail.com,2024-05-01,,S,S
+33,dfggfd,gfdgfd,gfdgfd,fgdgfd,2001-07-22,dfs,dsf,dsf,2001-07-22,2024-05-19,C,S
+34,Picker,Picker,Picker,Picker,2020-02-14,fdsdfs,fdsdsf,fdsdsf,2022-02-02,,S,N

@@ -1,41 +1,36 @@
 <template>
-  <v-app>
-    <v-container fluid>
-      <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
-        <v-container class="mt-6">
-      <v-row>
-        <v-col cols="12">
-          <v-carousel hide-delimiters>
+  <v-parallax
+    dark
+    src="https://www.educative.io/v2api/collection/10370001/4817064685731840/image/4716623947890688"
+  >
+    <v-row
+      align="center"
+      justify="center"
+    >
+      <v-col
+        class="text-center"
+        cols="12"
+      >
+      <v-carousel hide-delimiters :cycle="true" interval="5000">
             <v-carousel-item v-for="(slide,index) in slides" :key="index">
               <v-sheet
-              height="300px"
+              height="875px"
               tile
-              class="d-flex justify-center align-center"
+              class="d-flex justify-center align-center transparent-background"
               :style="`background-image: url(${slide.image}); background-size:cover;`">
                 <v-row class="fill-height" align="center">
                   <v-col class="white--text text-center">
                     <h3>{{ slide.title }}</h3>
                     <p>{{ slide.description }}</p>
-                    <v-btn color="primary" @click="navigateTo(slide.route)">Ir a {{ slide.title }}</v-btn>
+                    <v-btn color="#18E6B9" @click="navigateTo(slide.route)">Ir a {{ slide.title }}</v-btn>
                   </v-col>
                 </v-row>
               </v-sheet>
             </v-carousel-item>
           </v-carousel>
-        </v-col>
-      </v-row>
-    </v-container>
-
-      </v-parallax>
-      <v-layout
-      column
-      align-center
-      justify-center
-      class="white--text">
-        <h4>Gestión de empleados, proyectos y asignaciones</h4>
-      </v-layout>
-    </v-container>
-  </v-app>
+      </v-col>
+    </v-row>
+  </v-parallax>
 </template>
 
 <script>
@@ -86,6 +81,12 @@
   }
   .fill-height{
     height:100%;
+  }
+  .transparent-background{
+    background-color: transparent !important;
+  }
+  .mt-n10{
+    margin-top: 500px !important
   }
 </style>
 

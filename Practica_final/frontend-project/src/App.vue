@@ -12,7 +12,12 @@
           class="mb-4"
           color="grey darken-1"
           size="64"
-        ></v-avatar>
+        >
+        <img
+          src="./assets/eiranzo.jpg"
+          alt="Enrique Iranzo Martínez"
+        >
+        </v-avatar>
 
         <div>Enrique Iranzo Martínez</div>
       </v-sheet>

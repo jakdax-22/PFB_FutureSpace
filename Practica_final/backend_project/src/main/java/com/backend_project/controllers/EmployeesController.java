@@ -1,6 +1,8 @@
 package com.backend_project.controllers;
 
+import com.backend_project.model.Asignation;
 import com.backend_project.model.Employee;
+import com.backend_project.model.EmployeeAssigned;
 import com.backend_project.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,11 @@ public class EmployeesController {
     //Devuelve la lista de los empleados activos
     public List<Employee> getAllEmployees(){
         return employeeService.getAllActiveEmployees();
+    }
+    @GetMapping(path = "/assigned/{projectId}")
+    //Devuelve la lista de los empleados activos
+    public List<EmployeeAssigned> getAssignedEmployees(@PathVariable Integer projectId){
+        return employeeService.getAssignedEmployees(projectId);
     }
     @PostMapping
     //Inserta un nuevo empleado a la BD
