@@ -1,6 +1,9 @@
 <template>
   <div>
-    <v-data-table :headers="headers" :items="filteredEmployees" class="elevation-1 mt-10">
+    <v-data-table
+      :headers="headers"
+      :items="filteredEmployees"
+      class="elevation-1 mt-10">
       <template v-slot:top>
         <v-toolbar flat color="white">
           <v-row>
@@ -14,11 +17,14 @@
                 label="Buscar por NIF"
                 single-line
                 hide-details
-                clearable
-              ></v-text-field>
+                clearable>
+              </v-text-field>
             </v-col>
             <v-col cols="4" class="d-flex justify-end">
-              <v-btn color="primary" dark @click="dialog = true; insertedEmployee = {}; clearErrors()">
+              <v-btn
+                color="primary"
+                dark
+                @click="dialog = true; resetForm()">
                 <v-icon>mdi-account-plus</v-icon>
                 Insertar
               </v-btn>
@@ -27,9 +33,7 @@
         </v-toolbar>
       </template>
       <template v-slot:item.actions="{ item }">
-        <button>
-          <span small @click="confirmDeleteEmployee(item.employeeId)">❌</span>
-        </button>
+        <button><span small @click="confirmDeleteEmployee(item.employeeId)">❌</span></button>
       </template>
     </v-data-table>
     <v-row justify="center">
@@ -44,38 +48,34 @@
                 <v-col cols="4">
                   <v-text-field
                     label="NIF"
-                    required
                     v-model="insertedEmployee.nif"
-                    :error-messages="errors.nif"
-                    @blur="validateField('nif')"
-                  ></v-text-field>
+                    :rules="rules['nif']"
+                    required>
+                  </v-text-field>
                 </v-col>
                 <v-col cols="4">
                   <v-text-field
                     label="Nombre"
-                    required
                     v-model="insertedEmployee.name"
-                    :error-messages="errors.name"
-                    @input="validateField('name')"
-                  ></v-text-field>
+                    :rules="rules['name']"
+                    required>
+                  </v-text-field>
                 </v-col>
                 <v-col cols="4">
                   <v-text-field
                     label="Primer apellido"
-                    required
                     v-model="insertedEmployee.lastName"
-                    :error-messages="errors.lastName"
-                    @input="validateField('lastName')"
-                  ></v-text-field>
+                    :rules="rules['lastName']"
+                    required>
+                  </v-text-field>
                 </v-col>
                 <v-col cols="4">
                   <v-text-field
                     label="Segundo apellido"
-                    required
                     v-model="insertedEmployee.secondLastName"
-                    :error-messages="errors.secondLastName"
-                    @input="validateField('secondLastName')"
-                  ></v-text-field>
+                    :rules="rules['secondLastName']"
+                    required>
+                  </v-text-field>
                 </v-col>
                 <v-col cols="4">
                   <template>
@@ -86,8 +86,7 @@
                         :close-on-content-click="false"
                         transition="scale-transition"
                         offset-y
-                        min-width="auto"
-                      >
+                        min-width="auto">
                         <template v-slot:activator="{ on, attrs }">
                           <v-text-field
                             v-model="insertedEmployee.birthDate"
@@ -95,9 +94,8 @@
                             readonly
                             v-bind="attrs"
                             v-on="on"
-                            :error-messages="errors.birthDate"
-                          >
-                            {{ insertedEmployee.birthDate }}
+                            :rules="rules['birthDate']"
+                            >
                           </v-text-field>
                         </template>
                         <v-date-picker
@@ -105,8 +103,8 @@
                           :active-picker.sync="activePicker"
                           :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substring(0, 10)"
                           min="1950-01-01"
-                          @change="validateField('birthDate')"
-                        ></v-date-picker>
+                          @change="save">
+                        </v-date-picker>
                       </v-menu>
                     </div>
                   </template>
@@ -120,8 +118,7 @@
                         :close-on-content-click="false"
                         transition="scale-transition"
                         offset-y
-                        min-width="auto"
-                      >
+                        min-width="auto">
                         <template v-slot:activator="{ on, attrs }">
                           <v-text-field
                             v-model="insertedEmployee.registrationDate"
@@ -129,9 +126,8 @@
                             readonly
                             v-bind="attrs"
                             v-on="on"
-                            :error-messages="errors.registrationDate"
-                          >
-                            {{ insertedEmployee.registrationDate }}
+                            :rules="rules['registrationDate']"
+                            >
                           </v-text-field>
                         </template>
                         <v-date-picker
@@ -139,8 +135,8 @@
                           :active-picker.sync="activePicker"
                           :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substring(0, 10)"
                           min="1950-01-01"
-                          @change="validateField('registrationDate')"
-                        ></v-date-picker>
+                          @change="save">
+                        </v-date-picker>
                       </v-menu>
                     </div>
                   </template>
@@ -148,49 +144,44 @@
                 <v-col cols="4">
                   <v-text-field
                     label="Primer teléfono"
-                    required
                     v-model="insertedEmployee.firstNumber"
-                    :error-messages="errors.firstNumber"
-                    @input="validateField('firstNumber')"
-                  ></v-text-field>
+                    :rules="rules['firstNumber']"
+                    required>
+                  </v-text-field>
                 </v-col>
                 <v-col cols="4">
                   <v-text-field
                     label="Segundo teléfono"
-                    required
                     v-model="insertedEmployee.secondNumber"
-                    :error-messages="errors.secondNumber"
-                    @input="validateField('secondNumber')"
-                  ></v-text-field>
+                    :rules="rules['secondNumber']"
+                    required>
+                  </v-text-field>
                 </v-col>
                 <v-col cols="4">
                   <v-text-field
                     label="Email"
-                    required
                     v-model="insertedEmployee.email"
-                    :error-messages="errors.email"
-                    @input="validateField('email')"
-                  ></v-text-field>
+                    :rules="rules['email']"
+                    required>
+                  </v-text-field>
                 </v-col>
                 <v-col cols="4">
                   <v-select
                     :items="['Soltero', 'Casado']"
                     label="Estado civil"
-                    required
                     v-model="insertedEmployee.civilState"
-                    :error-messages="errors.civilState"
-                    @change="validateField('civilState')"
-                  ></v-select>
+                    :rules="rules['civilState']"
+                    required>
+                  </v-select>
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-select
                     :items="['Sí', 'No']"
                     label="Servicio militar"
-                    required
                     v-model="insertedEmployee.militarService"
-                    :error-messages="errors.militarService"
-                    @change="validateField('militarService')"
-                  ></v-select>
+                    :rules="rules['militarService']"
+                    required>
+                  </v-select>
                 </v-col>
               </v-row>
             </v-container>
@@ -200,7 +191,7 @@
             <v-btn color="blue darken-1" text @click="dialog = false">
               Cancelar
             </v-btn>
-            <v-btn color="blue darken-1" text @click="addEmployee() ; dialog=false" :disabled="!isValidForm">
+            <v-btn :disabled="!isValidForm" color="blue darken-1" text @click="dialog = false; addEmployee()">
               Aceptar
             </v-btn>
           </v-card-actions>
@@ -210,184 +201,234 @@
   </div>
 </template>
 
-
 <script>
-import axios from 'axios'
-import Swal from 'sweetalert2'
-    export default{
-        data(){
-            return{
-              search: '',
-              activePicker: null,
-              date: null,
-              menu: false,
-              menu2: false,
-              headers: [
-                { text: 'NIF', value: 'nif' },
-                { text: 'Nombre', value: 'name' },
-                { text: 'Primer Apellido', value: 'lastName' },
-                { text: 'Segundo Apellido', value: 'secondLastName' },
-                { text: 'Fecha de nacimiento', value: 'birthDate' },
-                { text: 'Primer teléfono', value: 'firstNumber' },
-                { text: 'Email', value: 'email' },
-                { text: 'Estado civil', value: 'civilState' },
-                { text: 'Servicio Militar', value: 'militarService' },
-                { text: 'Acciones', value: 'actions' },
-              ],
-              employees: [],
-              dialog: false,
-              insertedEmployee: {
-                nif: '',
-                name: '',
-                lastName: '',
-                secondLastName: '',
-                birthDate: '',
-                firstNumber: '',
-                secondNumber: '',
-                email: '',
-                registrationDate: '',
-                civilState: '',
-                militarService: ''
-              },
-              errors: {
-                nif: [],
-                name: [],
-                lastName: [],
-                secondLastName: [],
-                birthDate: [],
-                firstNumber: [],
-                secondNumber: [],
-                email: [],
-                registrationDate: [],
-                civilState: [],
-                militarService: []
-              }
-            }
-        },
-        mounted(){
-            this.getEmployees();
-        },
-        watch: {
-          menu (val) {
-            val && setTimeout(() => (this.activePicker = 'YEAR'))
-          },
-        },
-        computed: {
-          filteredEmployees(){
-            if (this.search && this.search.length > 0)
-              return this.employees.filter(employee => employee.nif.toLowerCase().includes(this.search.toLowerCase()));
-            else
-              return this.employees;
-          },
-          isValidForm() {
-            this.validateAllFields();
-            return Object.values(this.errors).every(errorArray => errorArray.length === 0);
+import axios from 'axios';
+import Swal from 'sweetalert2';
+
+export default {
+  data() {
+    return {
+      search: '',
+      activePicker: null,
+      date: null,
+      menu: false,
+      menu2: false,
+      dialog: false,
+      headers: [
+        { text: 'NIF', value: 'nif' },
+        { text: 'Nombre', value: 'name' },
+        { text: 'Primer Apellido', value: 'lastName' },
+        { text: 'Segundo Apellido', value: 'secondLastName' },
+        { text: 'Fecha de nacimiento', value: 'birthDate' },
+        { text: 'Primer teléfono', value: 'firstNumber' },
+        { text: 'Email', value: 'email' },
+        { text: 'Estado civil', value: 'civilState' },
+        { text: 'Servicio Militar', value: 'militarService' },
+        { text: 'Acciones', value: 'actions' },
+      ],
+      employees: [],
+      insertedEmployee: {},
+      errorMessages: [],
+      initialRules:{},
+      rules: {
+        nif: [
+          v => !!v || 'NIF es requerido',
+          v => /^[0-9]{8}[a-zA-Z]$/.test(v) || 'Formato de NIF no válido'
+        ],
+        name: [
+          v => !!v || 'Nombre es requerido',
+          v => (v && v.length <= 30) || 'Nombre demasiado largo'
+        ],
+        lastName: [
+          v => !!v || 'Primer apellido es requerido',
+          v => (v && v.length <= 30) || 'Primer apellido demasiado largo'
+        ],
+        secondLastName: [
+          v => !!v || 'Segundo apellido es requerido',
+          v => (v && v.length <= 30) || 'Segundo apellido demasiado largo'
+        ],
+        birthDate: [
+          v => !!v || 'Fecha de nacimiento es obligatoria',
+          v => {
+            const age = this.calculateAge(v);
+            return (age >= 16 && age <= 65) || 'La edad debe estar entre 16 y 65 años';
           }
-        },
-        methods:{
-            //Método para mandar una petición a la API y recoger todos los usuarios 
-            save (date) {
-              this.$refs.menu.save(date)
-            },
-            async getEmployees(){
-                try{
-                    const response = await axios.get('http://localhost:8080/employee/active');
-                    this.employees = response.data;
-                    console.log(this.employees)
-                }
-                catch(error){
-                    console.log(error)
-                }
-            },
-            clearErrors() {
-              for (let key in this.errors) {
-                this.errors[key] = [];
-              }
-            },
-            validateField(field) {
-              this.errors[field] = [];
-              if (!this.insertedEmployee[field]) {
-                this.errors[field].push('Este campo es obligatorio');
-              }
+        ],
+        firstNumber: [
+          v => !!v || 'Primer teléfono es requerido',
+          v => /^[1-9][0-9]{8}$/.test(v) || 'Formato de teléfono no válido'
+        ],
+        secondNumber: [
+          v => /^[1-9][0-9]{8}$/.test(v) || 'Formato de teléfono no válido'
+        ],
+        email: [
+          v => !!v || 'Email es requerido',
+          v => /.+@.+\..+/.test(v) || 'Email debe ser válido'
+        ],
+        registrationDate: [
+          v => !!v || 'Fecha de alta es obligatorio'
+        ],
+        civilState: [
+          v => !!v || 'Estado civil es obligatorio'
+        ],
+        militarService: [
+          v => !!v || 'Servicio militar es obligatorio'
+        ]
+      },
+    };
+  },
+  computed: {
+    filteredEmployees() {
+      if (!this.search) {
+        return this.employees;
+      }
+      return this.employees.filter(employee => 
+        employee.nif.toLowerCase().includes(this.search.toLowerCase())
+      );
+    },
+    isValidForm() {
+      if (this.dialog){
+        
+      }
+      let valid = true;
 
-              if (field === 'birthDate') {
-                const birthDate = new Date(this.insertedEmployee.birthDate);
-                const age = new Date().getFullYear() - birthDate.getFullYear();
-                if (age < 16 || age > 65) {
-                  this.errors[field].push('La edad debe estar entre 16 y 65 años');
-                }
-              }
-            },
-            validateAllFields() {
-              const fields = [
-                'nif', 'name', 'lastName', 'secondLastName',
-                'birthDate', 'firstNumber', 'secondNumber',
-                'email', 'registrationDate', 'civilState', 'militarService'
-              ];
-              fields.forEach(field => this.validateField(field));
-            },
-            save(date) {
-              this.$refs.menu.save(date);
-              this.validateField('birthDate');
-            },
-            //Método para insertar un nuevo empleado
-            async addEmployee(){
-                if (this.isValidForm){
-                  //Convertir valores
-                  this.insertedEmployee.civilState = this.insertedEmployee.civilState[0];
-                  this.insertedEmployee.militarService = this.insertedEmployee.militarService[0];
-                  //Probar la solicitud
-                  try{
-                      const response = await axios.post('http://localhost:8080/employee',this.insertedEmployee);
-
-                      //Comprobar el código de estado devuelto
-                      if (response.status === 200){
-                          //Se ha agregado correctamente
-                          Swal.fire('Todo correcto', response.data, 'success');
-                          this.getEmployees();
-                      }
-                      else{
-                          //Ha habido algún error
-                          Swal.fire('Error', response.data,'error');
-                      }
-                  }
-                  catch (error){
-                      //Error en la solicitud
-                      Swal.fire('Error', 'Error al realizar la solicitud', 'error');
-                  }
-                  finally{
-                      //Limpiar el formulario
-                      this.insertedEmployee = {};
-                  }
-                }
-            },
-            async confirmDeleteEmployee(id){
-                //Mostrar modal de confirmación
-                const confirmation = await Swal.fire({
-                    title:"¿Estas seguro?",
-                    text: "Esta acción no se puede deshacer",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonText: 'Eliminar',
-                    cancelButtonText: 'Cancelar',
-                });
-                if (confirmation.isConfirmed){
-                  try{
-                    //Enviar solicitud
-                    const response = await axios.put(`http://localhost:8080/employee/${id}`);
-
-                    //Manejar respuesta 
-                    Swal.fire("Eliminado", "El empleado ha sido dado de baja con éxito",'success');
-                    this.getEmployees();
-                }
-                  catch (error){
-                    if (error.code === "ERR_BAD_REQUEST"){
-                        Swal.fire("Error",error.response.data,'error');
-                      }
-                  }
-                  }
-            }
+      const fields = Object.keys(this.rules);
+      fields.forEach(field => {
+        if (!Array.isArray(this.rules[field])) {
+          return; // No hay reglas definidas para el campo, se considera válido
         }
+
+        const fieldValue = this.insertedEmployee[field];
+        const fieldRules = this.rules[field];
+
+        // Inicializar el mensaje de error como vacío
+        this.errorMessages[field] = '';
+
+        // Verificar cada regla de validación para el campo
+        for (const rule of fieldRules) {
+          const errorMessage = rule(fieldValue);
+          if (errorMessage !== true) {
+            this.errorMessages[field] = errorMessage;
+            valid = false;
+            break;
+          }
+        }
+      });
+      return valid;
+      }
+  },
+
+
+  methods: {
+    resetEmployee() {
+      return {
+        nif: '',
+        name: '',
+        lastName: '',
+        secondLastName: '',
+        birthDate: '',
+        registrationDate: '',
+        firstNumber: '',
+        secondNumber: '',
+        email: '',
+        civilState: '',
+        militarService: '',
+      };
+    },
+    resetForm() {
+      this.insertedEmployee = this.resetEmployee();
+      this.errorMessages = {};
+      for (const key in this.insertedEmployee){
+        this.rules[key] = this.initialRules[key];
+      }
+    },
+    calculateAge(birthDate) {
+      const today = new Date();
+      const birth = new Date(birthDate);
+      let age = today.getFullYear() - birth.getFullYear();
+      const monthDifference = today.getMonth() - birth.getMonth();
+      if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birth.getDate())) {
+        age--;
+      }
+      return age;
+    },
+    save(date) {
+      this.$refs.menu.save(date);
+      this.validateField('birthDate');
+    },
+    async getEmployees(){
+        try{
+            const response = await axios.get('http://localhost:8080/employee/active');
+            this.employees = response.data;
+            console.log(this.employees)
+        }
+        catch(error){
+            console.log(error)
+        }
+    },
+    //Método para insertar un nuevo empleado
+    async addEmployee(){
+        if (this.isValidForm){
+          //Convertir valores
+          this.insertedEmployee.civilState = this.insertedEmployee.civilState[0];
+          this.insertedEmployee.militarService = this.insertedEmployee.militarService[0];
+          //Probar la solicitud
+          try{
+              const response = await axios.post('http://localhost:8080/employee',this.insertedEmployee);
+
+              //Comprobar el código de estado devuelto
+              if (response.status === 200){
+                  //Se ha agregado correctamente
+                  Swal.fire('Todo correcto', response.data, 'success');
+                  this.getEmployees();
+              }
+              else{
+                  //Ha habido algún error
+                  Swal.fire('Error', response.data,'error');
+              }
+          }
+          catch (error){
+              //Error en la solicitud
+              Swal.fire('Error', 'Error al realizar la solicitud', 'error');
+          }
+          finally{
+              //Limpiar el formulario
+              this.insertedEmployee = {};
+          }
+        }
+    },
+    async confirmDeleteEmployee(id){
+        console.log(this.rules);
+        //Mostrar modal de confirmación
+        const confirmation = await Swal.fire({
+            title:"¿Estas seguro?",
+            text: "Esta acción no se puede deshacer",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar',
+        });
+        if (confirmation.isConfirmed){
+          try{
+            //Enviar solicitud
+            const response = await axios.put(`http://localhost:8080/employee/${id}`);
+
+            //Manejar respuesta 
+            Swal.fire("Eliminado", "El empleado ha sido dado de baja con éxito",'success');
+            this.getEmployees();
+        }
+          catch (error){
+            if (error.code === "ERR_BAD_REQUEST"){
+                Swal.fire("Error",error.response.data,'error');
+              }
+          }
+          }
+    }
+},
+  mounted(){
+      this.getEmployees();
+      this.initialRules = {...this.rules};
+  },
     }
 </script>
 <style scoped>

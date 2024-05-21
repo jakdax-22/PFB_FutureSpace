@@ -211,6 +211,9 @@ import Swal from 'sweetalert2'
           }
         },
         methods:{
+          save(date) {
+            this.$refs.menu.save(date);
+          },
             //Método para mandar una petición a la API y recoger todos los usuarios 
             async getProjects(){
                 try{
